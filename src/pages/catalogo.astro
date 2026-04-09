@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CategoryFilter from '../components/CategoryFilter.astro';
+import CTAWhatsApp from '../components/CTAWhatsApp.astro';
+import { products } from '../data/products';
+---
+
+<BaseLayout title="Catálogo">
+  <!-- Hero Section -->
+  <section class="container-custom hero-section animate-fadeIn">
+    <div class="text-center max-w-3xl mx-auto mb-12 animate-slideInUp">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary-900 mb-4">
+        Nossa Coleção
+      </h1>
+      <p class="text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed">
+        Roupas, calçados e acessórios para você se expressar com estilo
+      </p>
+    </div>
+  </section>
+
+  <!-- Category Filter with Products -->
+  <section class="container-custom pb-20 animate-fadeIn">
+    <CategoryFilter client:load products={products} />
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section-padding bg-gray-50/50 animate-fadeIn">
+    <div class="container-custom">
+      <div class="bg-gradient-to-r from-primary-900 to-primary-800 rounded-2xl p-12 sm:p-16 text-center space-y-6 hover:shadow-2xl transition-shadow duration-300 animate-scaleIn">
+        <h2 class="text-4xl sm:text-5xl font-bold text-white">
+          Não encontrou o que procura?
+        </h2>
+        <p class="text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
+          Entre em contato para mais opções ou dúvidas sobre nossas peças
+        </p>
+        <div class="flex justify-center">
+          <CTAWhatsApp variant="ghost" text="Enviar Mensagem" message="Olá! Gostaria de mais informações sobre a coleção de roupas Cereon." />
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

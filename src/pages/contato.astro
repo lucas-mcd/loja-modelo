@@ -1,0 +1,201 @@
+---
+// Importar layout base e componente WhatsApp CTA
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTAWhatsApp from '../components/CTAWhatsApp.astro';
+---
+
+<BaseLayout title="Contato">
+  <!-- Seção principal de contato com animação de fade in -->
+  <section class="section-padding animate-fadeIn">
+    <div class="container-custom">
+      <div class="w-full">
+        <!-- Área de conteúdo principal e grid de métodos de contato -->
+        <div class="space-y-8 mb-12">
+          <!-- Título e descrição com animação de slide in -->
+          <div class="animate-slideInUp text-center">
+            <h2 class="text-3xl font-bold text-primary-900 mb-6">
+              Formas de Contato
+            </h2>
+            <p class="text-lg text-gray-600 leading-relaxed">
+              Escolha a forma que melhor se adequa à sua preferência. Responderemos sua mensagem o mais breve possível.
+            </p>
+          </div>
+
+          <!-- Grid responsivo com 4 métodos de contato -->
+          <div class="contact-methods-grid">
+            <!-- Card de contato: WhatsApp com ícone, descrição e botão CTA -->
+            <div class="contact-card stagger-1 animate-slideInUp card-animate">
+              <div class="contact-card-header">
+                <!-- Wrapper de ícone com efeito glow ao passar o mouse -->
+                <div class="contact-icon-wrapper icon-glow">
+                  <!-- SVG do ícone WhatsApp -->
+                  <svg class="text-accent transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-4.255.949c-1.168.505-2.233 1.234-3.022 2.78m6.284 5.308c-2.566 1.649-5.39.948-6.788-.256-.64-.56-1.23-1.304-1.668-2.128" />
+                  </svg>
+                </div>
+                <!-- Título do método de contato -->
+                <h3 class="font-semibold text-primary-900">WhatsApp</h3>
+              </div>
+              <!-- Descrição do serviço oferecido -->
+              <p class="contact-card-description text-gray-600">
+                Dúvidas sobre produtos, tamanhos ou prazos? Fale conosco!
+              </p>
+              <!-- Botão CTA para enviar mensagem no WhatsApp -->
+              <div class="mt-auto">
+                <CTAWhatsApp text="Enviar Mensagem" message="Olá! Gostaria de tirar dúvidas sobre os produtos Cereon." />
+              </div>
+            </div>
+
+            <!-- Card de contato: Email com ícone, descrição e link -->
+            <div class="contact-card stagger-2 animate-slideInUp card-animate">
+              <div class="contact-card-header">
+                <!-- Wrapper de ícone com efeito glow ao passar o mouse -->
+                <div class="contact-icon-wrapper icon-glow">
+                  <!-- SVG do ícone Email -->
+                  <svg class="text-accent transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <!-- Título do método de contato -->
+                <h3 class="font-semibold text-primary-900">Email</h3>
+              </div>
+              <!-- Descrição do serviço oferecido -->
+              <p class="contact-card-description text-gray-600">
+                Para pedidos e dúvidas sobre nossa coleção
+              </p>
+              <!-- Link de email com animação do underline ao passar o mouse -->
+              <div class="mt-auto">
+                <a href="mailto:cereondigitalsystems@gmail.com" class="text-accent hover:text-accent/90 link-underline font-medium transition-colors break-all">
+                  cereondigitalsystems@gmail.com
+                </a>
+              </div>
+            </div>
+
+            <!-- Card de contato: Instagram com ícone, descrição e link -->
+            <div class="contact-card stagger-3 animate-slideInUp card-animate">
+              <div class="contact-card-header">
+                <!-- Wrapper de ícone com efeito glow ao passar o mouse -->
+                <div class="contact-icon-wrapper icon-glow">
+                  <!-- SVG do ícone Instagram -->
+                  <svg class="text-accent transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12c0-3.403 2.759-6.162 6.162-6.162s6.162 2.759 6.162 6.162c0 3.403-2.759 6.162-6.162 6.162s-6.162-2.759-6.162-6.162zm2.889 0c0 1.821 1.452 3.273 3.273 3.273s3.273-1.452 3.273-3.273c0-1.821-1.452-3.273-3.273-3.273s-3.273 1.452-3.273 3.273zm11.083-6.45c0 .795.645 1.44 1.44 1.44s1.44-.645 1.44-1.44-.645-1.44-1.44-1.44-1.44.645-1.44 1.44z" />
+                  </svg>
+                </div>
+                <!-- Título do método de contato -->
+                <h3 class="font-semibold text-primary-900">Instagram</h3>
+              </div>
+              <!-- Descrição do serviço oferecido -->
+              <p class="contact-card-description text-gray-600">
+                Siga para novidades e lançamentos
+              </p>
+              <!-- Link para perfil Instagram que abre em nova aba -->
+              <div class="mt-auto">
+                <a href="https://instagram.com/cereonsystems" target="_blank" rel="noopener noreferrer" class="text-accent hover:text-accent/90 link-underline font-medium transition-colors">
+                  @cereonsystems
+                </a>
+              </div>
+            </div>
+
+            <!-- Card de contato: Endereço com ícone, descrição e localização -->
+            <div class="contact-card stagger-4 animate-slideInUp card-animate">
+              <div class="contact-card-header">
+                <!-- Wrapper de ícone com efeito glow ao passar o mouse -->
+                <div class="contact-icon-wrapper icon-glow">
+                  <!-- SVG do ícone de localização ou mapa -->
+                  <svg class="text-accent transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
+                <!-- Título do método de contato -->
+                <h3 class="font-semibold text-primary-900">Endereço</h3>
+              </div>
+              <!-- Descrição do serviço oferecido -->
+              <p class="contact-card-description text-gray-600">
+                Visite nossa loja física
+              </p>
+              <!-- Rodapé do card com informações de endereço com limite de linhas -->
+              <div class="contact-card-footer text-gray-600 mt-auto space-y-1">
+                <!-- Nome da loja em destaque -->
+                <p class="text-accent font-medium">Cereon - Loja</p>
+                <!-- Endereço com limite de 2 linhas -->
+                <p class="line-clamp-2">Rua das Flores, 1234</p>
+                <!-- Cidade com limite de 1 linha -->
+                <p class="line-clamp-1">Centro, Fortaleza</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Seção de perguntas frequentes com background cinza claro -->
+  <section class="section-padding bg-gray-50/50 animate-fadeIn">
+    <div class="container-custom">
+      <!-- Cabeçalho da seção FAQ com animação de slide in -->
+      <div class="text-center max-w-2xl mx-auto mb-12 sm:mb-16 animate-slideInUp">
+        <h2 class="text-4xl font-bold text-primary-900 mb-4">
+          Perguntas Frequentes
+        </h2>
+      </div>
+
+      <!-- Container com espaçamento entre itens de FAQ -->
+      <div class="max-w-3xl mx-auto space-y-4">
+        <!-- Item FAQ 1: Tempo de resposta -->
+        <details class="group border border-gray-200 rounded-lg p-6 cursor-pointer hover:bg-gray-50 transition-colors">
+          <!-- Botão com ícone que rotaciona ao clicar -->
+          <summary class="flex items-center justify-between font-semibold text-primary-900 text-lg">
+            <span>Qual o tempo de resposta?</span>
+            <!-- Ícone SVG de seta que rotaciona 180 graus ao abrir -->
+            <span class="transition-transform group-open:rotate-180">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </span>
+          </summary>
+          <!-- Texto da resposta que aparece ao clicar no item -->
+          <p class="text-gray-600 leading-relaxed mt-4">
+            Respondemos o mais breve possível via WhatsApp e Instagram. Para consultas urgentes, prefira o WhatsApp!
+          </p>
+        </details>
+
+        <!-- Item FAQ 2: Personalização de produtos -->
+        <details class="group border border-gray-200 rounded-lg p-6 cursor-pointer hover:bg-gray-50 transition-colors">
+          <!-- Botão com ícone que rotaciona ao clicar -->
+          <summary class="flex items-center justify-between font-semibold text-primary-900 text-lg">
+            <span>Os produtos podem ser personalizados?</span>
+            <!-- Ícone SVG de seta que rotaciona 180 graus ao abrir -->
+            <span class="transition-transform group-open:rotate-180">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </span>
+          </summary>
+          <!-- Texto da resposta que aparece ao clicar no item -->
+          <p class="text-gray-600 leading-relaxed mt-4">
+            Sim! Podemos criar uma proposta personalizada com a seleção de produtos que melhor se adequam ao seu negócio.
+          </p>
+        </details>
+
+        <!-- Item FAQ 3: Tipo de suporte oferecido -->
+        <details class="group border border-gray-200 rounded-lg p-6 cursor-pointer hover:bg-gray-50 transition-colors">
+          <!-- Botão com ícone que rotaciona ao clicar -->
+          <summary class="flex items-center justify-between font-semibold text-primary-900 text-lg">
+            <span>Qual o tipo de suporte oferecido?</span>
+            <!-- Ícone SVG de seta que rotaciona 180 graus ao abrir -->
+            <span class="transition-transform group-open:rotate-180">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </span>
+          </summary>
+          <!-- Texto da resposta que aparece ao clicar no item -->
+          <p class="text-gray-600 leading-relaxed mt-4">
+            Oferecemos suporte completo via WhatsApp, email e telefone. Estamos disponíveis de segunda a sexta, das 9h às 18h.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

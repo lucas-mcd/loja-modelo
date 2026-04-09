@@ -1,0 +1,1198 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ========== MOBILE PERFORMANCE OPTIMIZATION ========== */
+/* Estratégia de otimizacao para dispositivos mobile (largura maxima: 767px)
+   - Todas as animacoes completas em 0.01ms (aparecem instantaneas)
+   - Todas as transicoes desabilitadas em mobile
+   - Scroll behavior alterado de smooth para auto (mais rapido em mobile)
+   - Resultado: mobile carrega extremamente rapido sem jank ou travamentos
+*/
+@media (max-width: 767px) {
+  /* Desabilitar todas as animacoes e transicoes universalmente */
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  /* Desabilitar scroll suave para melhor performance */
+  html {
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Tipografia Base */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white text-gray-900 antialiased;
+  }
+
+  /* Font features ativadas apenas no desktop para economizar recursos */
+  @media (min-width: 768px) {
+    body {
+      font-feature-settings: 'rlig' 1, 'calt' 1;
+    }
+  }
+
+  h1 {
+    @apply text-4xl font-bold tracking-tight;
+  }
+
+  h2 {
+    @apply text-3xl font-semibold tracking-tight;
+  }
+
+  h3 {
+    @apply text-2xl font-semibold;
+  }
+
+  h4 {
+    @apply text-xl font-semibold;
+  }
+
+  p {
+    @apply leading-relaxed;
+  }
+}
+
+/* Componentes Customizados */
+@layer components {
+  /* Container responsivo com padding lateral */
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Padding vertical responsivo para secoes */
+  .section-padding {
+    @apply py-8 sm:py-12 md:py-16 lg:py-20 xl:py-24;
+  }
+
+  /* Estilo especial para hero sections */
+  .hero-section {
+    @apply py-4 sm:py-6 md:py-8 lg:py-10;
+  }
+
+  .hero-section h1,
+  .hero-section h2 {
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl;
+  }
+
+  /* Botao primario com efeito shine no desktop apenas */
+  .button-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 bg-accent text-white font-medium rounded-xl active:scale-95;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(212, 165, 116, 0.2);
+  }
+
+  /* Transicoes e animacoes de hover ativadas apenas no desktop */
+  @media (min-width: 768px) {
+    .button-primary {
+      @apply transition-all duration-300 ease-in-out;
+    }
+
+    /* Efeito shine que desliza sobre o botao */
+    .button-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transform: translateX(-100%);
+      transition: transform 600ms ease-in-out;
+    }
+
+    .button-primary:hover::before {
+      transform: translateX(100%);
+    }
+
+    .button-primary:hover {
+      background-color: #c89568;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(212, 165, 116, 0.3);
+    }
+  }
+
+  /* Botao secundario com estilo inverse (branco com borda) */
+  .button-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 text-primary-900 font-medium rounded-xl active:scale-95;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid #d4a574;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  /* Transicoes e animacoes de hover ativadas apenas no desktop */
+  @media (min-width: 768px) {
+    .button-secondary {
+      @apply transition-all duration-300 ease-in-out;
+    }
+
+    /* Efeito shine que desliza sobre o botao */
+    .button-secondary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(212,165,116,0.2), transparent);
+      transform: translateX(-100%);
+      transition: transform 600ms ease-in-out;
+      pointer-events: none;
+    }
+
+    .button-secondary:hover::before {
+      transform: translateX(100%);
+    }
+
+    .button-secondary:hover {
+      border-color: #c89568;
+      background-color: #f5f3f0;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(212, 165, 116, 0.2);
+    }
+  }
+
+  /* Texto gradiente para destaques */
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary-900 to-accent bg-clip-text text-transparent;
+  }
+
+  /* Animacao de fade in para elementos ao carregarem */
+  .animate-on-load {
+    @apply animate-fadeIn;
+  }
+
+  /* ========== LINK NAVIGATION ANIMATION (FINAL VERSION) ========== */
+  /* Link com efeito de sublinhado animado ao passar o mouse
+     Estrategia: animacoes ativas apenas no desktop (hover nao funciona em mobile)
+     Mobile: nenhum efeito (nao aplicavel em touch devices)
+  */
+  
+  .link-underline {
+    position: relative !important;
+    display: inline-block !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    color: #374151 !important;
+    text-decoration: none !important;
+    outline: none !important;
+    border: none !important;
+    background: none !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    line-height: 1.5 !important;
+    white-space: nowrap !important;
+  }
+
+  /* Sublinhado base (linha que expande no hover) */
+  .link-underline::after {
+    content: "" !important;
+    position: absolute !important;
+    bottom: -8px !important;
+    left: 0 !important;
+    width: 0 !important;
+    height: 2px !important;
+    background-color: #d4a574 !important;
+  }
+
+  /* Transicao de largura do sublinhado apenas no desktop */
+  @media (min-width: 768px) {
+    .link-underline::after {
+      transition: width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+    }
+  }
+
+  /* Camada de overlay para mudar cor do texto no hover */
+  .link-underline::before {
+    content: attr(data-text) !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 0% !important;
+    height: 100% !important;
+    color: #d4a574 !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    font-weight: 600 !important;
+  }
+
+  /* Transicao de largura do overlay apenas no desktop */
+  @media (min-width: 768px) {
+    .link-underline::before {
+      transition: width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+    }
+  }
+
+  /* Cor base do link no hover */
+  .link-underline:hover {
+    color: #d4a574 !important;
+  }
+
+  /* Animacao completa apenas no desktop */
+  @media (min-width: 768px) {
+    .link-underline:hover::after {
+      width: 100% !important;
+    }
+
+    .link-underline:hover::before {
+      width: 100% !important;
+    }
+  }
+
+  /* ========== CUSTOM KEYFRAME ANIMATIONS ========== */
+  /* Todas as keyframes sao utilizadas apenas em breakpoints desktop (768px+)
+     Mobile utiliza 0.01ms para completar todas as animacoes instantaneamente
+  */
+
+  /* Slide up animation para cards que entram da parte inferior */
+  @keyframes slideInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Shine slide animation para efeito de luz deslizante em botoes */
+  @keyframes shineSlide {
+    0% {
+      left: -75px;
+    }
+    100% {
+      left: 120%;
+    }
+  }
+
+  /* Rotacao especial para botao CTA com efeito de movimento dinamico */
+  @keyframes rotate624 {
+    0% {
+      transform: rotate(0deg) translate3d(0, 0, 0) scale(1);
+    }
+    25% {
+      transform: rotate(18deg) translate3d(0, -4px, 0) scale(1.08);
+    }
+    50% {
+      transform: rotate(-18deg) translate3d(0, 4px, 0) scale(1.08);
+    }
+    75% {
+      transform: rotate(10deg) translate3d(0, -2px, 0) scale(1.04);
+    }
+    100% {
+      transform: rotate(0deg) translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  /* Animacao de texto no botao CTA que tremula junto com o botao */
+  @keyframes storm1261 {
+    0% {
+      transform: translate3d(0, 0, 0) translateZ(0);
+    }
+    25% {
+      transform: translate3d(15px, -4px, 0) translateZ(0);
+    }
+    50% {
+      transform: translate3d(-15px, 4px, 0) translateZ(0);
+    }
+    75% {
+      transform: translate3d(12px, -3px, 0) translateZ(0);
+    }
+    100% {
+      transform: translate3d(0, 0, 0) translateZ(0);
+    }
+  }
+
+  /* Efeito glow que pulsa em torno de elementos */
+  @keyframes glow {
+    0%, 100% {
+      box-shadow: 0 0 5px rgba(212, 165, 116, 0.3);
+    }
+    50% {
+      box-shadow: 0 0 20px rgba(212, 165, 116, 0.6);
+    }
+  }
+
+  /* ========== PRODUCT CARD ANIMATIONS ========== */
+  /* Estrategia: animacoes e efeitos apenas no desktop
+     - Cards no mobile sao renderizados rapidamente sem animacoes
+     - Desktop apresenta entrada suave, hover effects e efeitos visuais
+     - CSS Containment melhora performance de renderizacao
+  */
+  
+  /* Cards de produtos com animacao de entrada premium */
+  article[data-category] {
+    position: relative;
+    /* Contem layout e paint dentro do elemento */
+    contain: content;
+  }
+
+  /* Otimizacao de paint no mobile */
+  @media (max-width: 767px) {
+    article[data-category] {
+      /* Paint containment reduz work de paint tree */
+      contain: paint;
+    }
+  }
+
+  /* Animacoes e efeitos visuais apenas no desktop */
+  @media (min-width: 768px) {
+    article[data-category] {
+      animation: slideInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+      transition: all 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+      /* will-change otimiza layer composition */
+      will-change: transform, opacity;
+    }
+
+    /* Stagger animation para multiplos cards */
+    article[data-category]:nth-child(1) { animation-delay: 0.1s; }
+    article[data-category]:nth-child(2) { animation-delay: 0.2s; }
+    article[data-category]:nth-child(3) { animation-delay: 0.3s; }
+    article[data-category]:nth-child(4) { animation-delay: 0.4s; }
+    article[data-category]:nth-child(5) { animation-delay: 0.5s; }
+    article[data-category]:nth-child(6) { animation-delay: 0.6s; }
+
+    /* Efeito de elevacao e escala ao passar o mouse */
+    article[data-category]:hover {
+      transform: scale(1.05) translateY(-8px);
+      box-shadow: 0 20px 40px rgba(212, 165, 116, 0.2), 0 0 30px rgba(212, 165, 116, 0.1);
+    }
+
+    /* Efeito de brilho na imagem dos cards */
+    article[data-category]:hover img {
+      filter: brightness(1.1) contrast(1.05);
+    }
+
+    /* Elevacao suave do card com pseudo-elemento */
+    article[data-category]::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 1rem;
+      opacity: 0;
+      box-shadow: 0 30px 60px rgba(212, 165, 116, 0.15);
+      transition: opacity 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    article[data-category]:hover::before {
+      opacity: 1;
+    }
+  }
+
+  /* Mobile: apenas efeito de tap sem animacoes */
+  @media (max-width: 767px) {
+    article[data-category]:active {
+      transform: scale(0.95);
+    }
+  }
+  /* Card component com otimizacao de performance */
+  .card-animate {
+    padding: 1.5rem;
+    background: white;
+    border-radius: 16px;
+    border: 1px solid #f0f0f0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+    /* CSS containment para isolar paint e layout */
+    contain: content;
+  }
+
+  /* Paint containment no mobile para melhor performance */
+  @media (max-width: 767px) {
+    .card-animate {
+      contain: paint;
+    }
+  }
+
+  /* Animacoes de entrada e hover effects apenas no desktop */
+  @media (min-width: 768px) {
+    .card-animate {
+      animation: slideInUp 0.6s ease-out backwards;
+      @apply hover:scale-105 transition-all duration-300 ease-out;
+      /* Otimiza composicao de layers */
+      will-change: transform;
+    }
+
+    .card-animate:hover {
+      box-shadow: 0 12px 24px rgba(212, 165, 116, 0.15);
+      border-color: #d4a574;
+    }
+  }
+
+  /* Mobile: apenas efeito de tap */
+  @media (max-width: 767px) {
+    .card-animate {
+      @apply active:scale-95;
+    }
+
+    .card-animate:active {
+      box-shadow: 0 8px 16px rgba(212, 165, 116, 0.1);
+    }
+  }
+
+  /* Versão melhorada dos cards com muito mais espaço */
+  .card-animate.space-y-4 {
+    padding: 2rem 1.5rem;
+  }
+
+  .card-animate.space-y-4 h3 {
+    margin-top: 1rem;
+  }
+
+  .card-animate.space-y-4 p {
+    margin-top: 0.5rem;
+  }
+
+  /* Cards com flex e gap (usado em "Por que escolher Cereon") */
+  .card-animate.flex {
+    padding: 1.75rem;
+  }
+
+  .card-animate.flex h3 {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Animação de entrada suave para os cards - Desktop apenas */
+  @media (min-width: 768px) {
+    .stagger-1.card-animate { animation-delay: 0.1s; }
+    .stagger-2.card-animate { animation-delay: 0.2s; }
+    .stagger-3.card-animate { animation-delay: 0.3s; }
+    .stagger-4.card-animate { animation-delay: 0.4s; }
+    .stagger-5.card-animate { animation-delay: 0.5s; }
+    .stagger-6.card-animate { animation-delay: 0.6s; }
+    .stagger-7.card-animate { animation-delay: 0.7s; }
+    .stagger-8.card-animate { animation-delay: 0.8s; }
+    .stagger-9.card-animate { animation-delay: 0.9s; }
+  }
+
+  /* Melhorar espaçamento interno dos cards center-aligned */
+  .card-animate.text-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card-animate.text-center > div:first-child {
+    margin-bottom: 1rem;
+  }
+
+  .card-animate.text-center h3 {
+    margin-top: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .card-animate.text-center p {
+    margin: 0;
+  }
+
+  /* Botão com Efeito Ripple - Preparação para Hover */
+  .button-interactive {
+    @apply relative overflow-hidden;
+  }
+
+  @media (min-width: 768px) {
+    .button-interactive {
+      @apply transition-all duration-300 ease-in-out;
+    }
+
+    .button-interactive:hover {
+      @apply -translate-y-1 shadow-lg;
+    }
+
+    .button-interactive:active {
+      @apply translate-y-0 shadow-md scale-95;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .button-interactive:active {
+      @apply translate-y-0 shadow-md scale-95;
+    }
+  }
+
+  /* Ícone com Glow - Melhorado */
+  .icon-glow {
+    box-shadow: 0 4px 12px rgba(212, 165, 116, 0.15);
+  }
+
+  @media (min-width: 768px) {
+    .icon-glow {
+      @apply transition-all duration-300 ease-in-out;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .icon-glow:hover {
+      animation: glow 1.5s ease-in-out forwards;
+      box-shadow: 0 8px 20px rgba(212, 165, 116, 0.25);
+      transform: scale(1.1);
+    }
+  }
+
+  /* Glow Keyframe */
+  @keyframes glow {
+    0%, 100% {
+      box-shadow: 0 0 5px rgba(212, 165, 116, 0.3);
+    }
+    50% {
+      box-shadow: 0 0 20px rgba(212, 165, 116, 0.6);
+    }
+  }
+
+  /* Texto com Shimmer (Loading Effect) */
+  @keyframes shimmer-custom {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+
+  .shimmer-text {
+    background: linear-gradient(
+      90deg,
+      #e0dbd4 25%,
+      #f0edea 50%,
+      #e0dbd4 75%
+    );
+    background-size: 1000px 100%;
+    animation: shimmer-custom 2s infinite;
+  }
+
+  /* Animações especiais para o botão "Comprar Agora" */
+  @keyframes rotate624 {
+    0% {
+      transform: rotate(0deg) translate3d(0, 0, 0) scale(1);
+    }
+    25% {
+      transform: rotate(18deg) translate3d(0, -4px, 0) scale(1.08);
+    }
+    50% {
+      transform: rotate(-18deg) translate3d(0, 4px, 0) scale(1.08);
+    }
+    75% {
+      transform: rotate(10deg) translate3d(0, -2px, 0) scale(1.04);
+    }
+    100% {
+      transform: rotate(0deg) translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  @keyframes storm1261 {
+    0% {
+      transform: translate3d(0, 0, 0) translateZ(0);
+    }
+    25% {
+      transform: translate3d(15px, -4px, 0) translateZ(0);
+    }
+    50% {
+      transform: translate3d(-15px, 4px, 0) translateZ(0);
+    }
+    75% {
+      transform: translate3d(12px, -3px, 0) translateZ(0);
+    }
+    100% {
+      transform: translate3d(0, 0, 0) translateZ(0);
+    }
+  }
+
+  /* Shine slide animation */
+  @keyframes shineSlide {
+    0% {
+      left: -75px;
+    }
+    100% {
+      left: 120%;
+    }
+  }
+
+  /* Stagger Animation Helper */
+  .stagger-1 {
+    animation-delay: 0s;
+  }
+
+  .stagger-2 {
+    animation-delay: 0.1s;
+  }
+
+  .stagger-3 {
+    animation-delay: 0.2s;
+  }
+
+  .stagger-4 {
+    animation-delay: 0.3s;
+  }
+
+  .stagger-5 {
+    animation-delay: 0.4s;
+  }
+
+  .stagger-6 {
+    animation-delay: 0.5s;
+  }
+
+  .stagger-7 {
+    animation-delay: 0.6s;
+  }
+
+  .stagger-8 {
+    animation-delay: 0.7s;
+  }
+
+  .stagger-9 {
+    animation-delay: 0.8s;
+  }
+
+  /* Efeito de Pulse para CTAs */
+  .pulse-glow {
+    @apply animate-pulse;
+  }
+
+  /* ========== CONTACT GRID AND CARDS ========== */
+  /* Grid responsivo para metodos de contato
+     Mobile(1 col) -> Tablet(2-3 cols) -> Desktop(4 cols)
+  */
+
+  .contact-methods-grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 640px) {
+    .contact-methods-grid {
+      gap: 2rem;
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .contact-methods-grid {
+      gap: 2rem;
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .contact-methods-grid {
+      gap: 2rem;
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .contact-methods-grid {
+      gap: 2rem;
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  @media (min-width: 1536px) {
+    .contact-methods-grid {
+      gap: 2rem;
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  /* Card de contato - responsivo com conteudo visivel */
+  .contact-card {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    border-radius: 1rem;
+    border: 1px solid #e5e7eb;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    overflow: visible;
+  }
+
+  /* Transicoes e hover effects apenas no desktop */
+  @media (min-width: 768px) {
+    .contact-card {
+      padding: 2rem;
+      transition: all 0.3s ease;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .contact-card {
+      padding: 2rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .contact-card {
+      padding: 2rem;
+    }
+  }
+
+  /* Efeito hover apenas no desktop */
+  @media (min-width: 768px) {
+    .contact-card:hover {
+      border-color: rgba(212, 165, 116, 0.6);
+      box-shadow: 0 8px 24px rgba(212, 165, 116, 0.15);
+      transform: translateY(-4px);
+    }
+  }
+
+  /* Card header com ícone responsivo */
+  .contact-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .contact-card-header h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #1f2937;
+    margin: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .contact-card-header {
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .contact-card-header h3 {
+      font-size: 1.05rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .contact-card-header {
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .contact-card-header h3 {
+      font-size: 1.05rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .contact-card-header {
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .contact-card-header h3 {
+      font-size: 1.05rem;
+    }
+  }
+
+  /* Card description text */
+  .contact-card-description {
+    font-size: 0.93rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    color: #666;
+    flex-grow: 1;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  @media (min-width: 768px) {
+    .contact-card-description {
+      font-size: 0.93rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .contact-card-description {
+      font-size: 0.93rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .contact-card-description {
+      font-size: 0.93rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  /* Card footer content */
+  .contact-card-footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 3.5rem;
+    font-size: 0.9rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    padding-top: 1rem;
+    border-top: 1px solid #f3f4f6;
+  }
+
+  @media (min-width: 768px) {
+    .contact-card-footer {
+      font-size: 0.9rem;
+      padding-top: 1rem;
+      min-height: 3.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .contact-card-footer {
+      font-size: 0.9rem;
+      padding-top: 1rem;
+      min-height: 3.5rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .contact-card-footer {
+      font-size: 0.9rem;
+      padding-top: 1rem;
+      min-height: 3.5rem;
+    }
+  }
+
+  .contact-card-footer p {
+    margin: 0.25rem 0;
+    word-break: break-word;
+    font-size: 0.9rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .contact-card-footer .text-accent {
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .contact-card-footer .line-clamp-2 {
+    font-size: 0.9rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .contact-card-footer .line-clamp-1 {
+    font-size: 0.9rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Icon wrapper responsivo */
+  .contact-icon-wrapper {
+    flex-shrink: 0;
+    width: 3.25rem;
+    min-width: 3.25rem;
+    height: 3.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.75rem;
+    background-color: rgba(212, 165, 116, 0.12);
+  }
+
+  @media (min-width: 768px) {
+    .contact-icon-wrapper {
+      transition: all 0.3s ease;
+      width: 3.25rem;
+      min-width: 3.25rem;
+      height: 3.25rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .contact-icon-wrapper {
+      width: 3.25rem;
+      min-width: 3.25rem;
+      height: 3.25rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .contact-icon-wrapper {
+      width: 3.25rem;
+      min-width: 3.25rem;
+      height: 3.25rem;
+    }
+  }
+
+  .contact-icon-wrapper svg {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  @media (min-width: 768px) {
+    .contact-icon-wrapper svg {
+      width: 1.75rem;
+      height: 1.75rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .contact-icon-wrapper svg {
+      width: 1.75rem;
+      height: 1.75rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .contact-icon-wrapper svg {
+      width: 1.75rem;
+      height: 1.75rem;
+    }
+  }
+
+  .contact-card:hover .contact-icon-wrapper {
+    background-color: rgba(212, 165, 116, 0.2);
+    transform: scale(1.1);
+  }
+
+  @media (max-width: 767px) {
+    .contact-card:hover .contact-icon-wrapper {
+      background-color: rgba(212, 165, 116, 0.12);
+      transform: scale(1);
+    }
+  }
+
+  /* Links e botões dentro dos cards - altura consistente */
+  .contact-card a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 3rem;
+    padding: 0.5rem 0;
+  }
+
+  .contact-card .mt-auto {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+  }
+
+  /* ========== SPECIAL CTA BUTTON STYLES ========== */
+  /* Botao com efeito especial de animacao dinamica
+     Estrategia: animacoes ativas apenas a partir de 1024px (desktop grande)
+     Desktop menor (tablet landscape): apenas transformacoes simples
+     Mobile: apenas efeito de tap (scale down)
+  */
+
+  .btn-special {
+    position: relative;
+    padding: 0.7rem 1.8rem;
+    outline: none;
+    text-decoration: none;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    text-transform: uppercase;
+    background-color: #d4a574;
+    border: 2px solid #d4a574;
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+    font-family: inherit;
+    z-index: 10;
+    overflow: hidden;
+    letter-spacing: 0.7px;
+    box-shadow: 0 0 0 0px transparent;
+  }
+
+  /* Transicoes habilitadas no desktop */
+  @media (min-width: 768px) {
+    .btn-special {
+      transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
+    }
+  }
+
+  /* Pseudo-elemento com efeito shine que desliza */
+  .btn-special::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: -75px;
+    width: 50px;
+    height: 155px;
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(35deg);
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  /* Transicao de shine apenas no desktop */
+  @media (min-width: 768px) {
+    .btn-special::before {
+      transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+    }
+  }
+
+  /* Animacoes dinamicas apenas em telas grandes (1024px+) */
+  @media (min-width: 1024px) {
+    .btn-special {
+      position: relative;
+    }
+
+    .btn-special:hover::before,
+    .btn-special.animating::before {
+      left: 120%;
+      animation: shineSlide 0.6s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+    }
+
+    .btn-special:hover,
+    .btn-special.animating {
+      animation: rotate624 0.95s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
+      box-shadow: 0 15px 40px rgba(212, 165, 116, 0.5) !important;
+      pointer-events: auto;
+    }
+
+    .btn-special:hover span,
+    .btn-special.animating span {
+      display: inline-block;
+      animation: storm1261 0.95s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
+      pointer-events: none;
+    }
+  }
+
+  /* Efeito de tap no mobile e tablet */
+  @media (max-width: 1023px) {
+    .btn-special:active {
+      transform: scale(0.95);
+    }
+  }
+
+  /* ========== ENHANCED ANIMATIONS ========== */
+  /* Estrategia de otimizacao de animacoes:
+     - Mobile: desabilita todas as animacoes complexas, mantend apenas efeitos de tap
+     - Desktop: animacoes completas com efeitos de entrada e hover
+     - Resultado: performance otimizada em todos os dispositivos
+  */
+
+  /* Desabilitar animacoes exageradas em mobile */
+  @media (max-width: 767px) {
+    .animate-slideInUp,
+    .animate-slideInRight,
+    .animate-slideInLeft,
+    .animate-scaleIn,
+    .animate-cardBounce {
+      animation: fadeIn 0.4s ease-out !important;
+    }
+
+    .animate-float {
+      animation: none !important;
+    }
+
+    .animate-glow {
+      animation: none !important;
+    }
+
+    .card-animate:hover {
+      transform: none !important;
+    }
+  }
+
+  /* Animacoes aprimoradas apenas para desktop */
+  @media (min-width: 768px) {
+    /* Cards com animacao bounce melhorada */
+    .card-animate {
+      transition: all 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .card-animate:hover {
+      box-shadow: 0 20px 40px rgba(212, 165, 116, 0.2) !important;
+      border-color: #d4a574 !important;
+    }
+
+    /* Buttons com animacao de hover */
+    .button-primary:hover {
+      animation: none;
+    }
+
+    .button-secondary:hover {
+      animation: none;
+    }
+
+    /* Fade in aprimorado com desfoque progressivo */
+    @keyframes enhancedFadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+        filter: blur(5px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
+    }
+
+    /* Slide com desfoque para entrada lateral */
+    @keyframes slideInWithBlur {
+      0% {
+        opacity: 0;
+        transform: translateX(-30px);
+        filter: blur(4px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+        filter: blur(0);
+      }
+    }
+
+    /* Scale com rotacao para cards */
+    @keyframes scaleWithRotate {
+      0% {
+        opacity: 0;
+        transform: scale(0.8) rotate(-5deg);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+      }
+    }
+  }
+}
+
+/* ========== ACCESSIBILITY ========== */
+/* Respeitar preferencia do usuario para movimento reduzido
+   - Usuarios com sensibilidade a movimento podem desabilitar via sistema operacional
+   - Quando prefers-reduced-motion é ativo, todas as animacoes sao desabilitadas
+   - Animacoes completam em 0.01ms (instantaneas)
+   - Melhora acessibilidade e incluso de usuarios com condicoes vestibulares
+*/
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
